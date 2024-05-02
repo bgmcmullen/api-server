@@ -16,8 +16,8 @@ const cityRoutes = require('./routes/city.js');
 app.use(cors());
 app.use(express.json());
 
-app.use(logger, dogRoutes);
-app.use(logger, cityRoutes);
+app.use('/dogs', logger, dogRoutes);
+app.use('/cities', logger, cityRoutes);
 
 app.use('/broken', (req,res,next) => next("ERROR!!!!!!!!!!!!!"));
 

@@ -4,11 +4,19 @@ const {Sequelize, DataTypes } = require('sequelize');
 
 let sequelize = new Sequelize(DATABASE_URL, {logging:false},);
 
-const dogModel = require('./dog.js');
-const cityModel = require('./city.js')
+const Collection = require('./collection.js')
+
+const dogSchema = require('./dog.js');
+const citySchema = require('./city.js');
+
+const dogModel = dogSchema(sequelize, DataTypes);
+const cityModel = citySchema(sequelize, DataTypes);
+
+const dogCollection = new Collection(dogModel);
+const cityCollection = new Collection(cityModel);
 
 module.exports = {
     db: sequelize,
-    Dogs: dogModel(sequelize, DataTypes),
-    City: cityModel(sequelize, DataTypes)
+    Dogs: dogCollection,
+    City: cityCollection
 };

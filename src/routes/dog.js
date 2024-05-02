@@ -8,11 +8,11 @@ const router = express.Router();
 const {Dogs} = require('../models/index.js');
 
 
-router.get('/dogs', getDogs);
-router.get('/dogs/:id', getOneDog);
-router.post('/dogs', createDog);
-router.put('/dogs/:id', updateDog);
-router.delete('/dogs/:id', deleteDog);
+router.get('/', getDogs);
+router.get('/:id', getOneDog);
+router.post('/', createDog);
+router.put('/:id', updateDog);
+router.delete('/:id', deleteDog);
 
 // ROUTE HANDLERS
 async function getDogs( request, response ) {
