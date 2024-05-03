@@ -7,16 +7,19 @@ let sequelize = new Sequelize(DATABASE_URL, {logging:false},);
 const Collection = require('./collection.js')
 
 const dogSchema = require('./dog.js');
-const citySchema = require('./city.js');
+const ownerSchema = require('./owner.js');
 
 const dogModel = dogSchema(sequelize, DataTypes);
-const cityModel = citySchema(sequelize, DataTypes);
+const ownerModel = ownerSchema(sequelize, DataTypes);
 
 const dogCollection = new Collection(dogModel);
-const cityCollection = new Collection(cityModel);
+const ownerCollection = new Collection(ownerModel);
+
+ownerModel.hasMany(dogModel, {foreignKey: 'ownerId', sourceKey: 'id'} )
+dogModel.belongsTo(ownerModel, {foreignKey: 'onwerId', targetKey: 'id'});
 
 module.exports = {
     db: sequelize,
     Dogs: dogCollection,
-    City: cityCollection
+    Owners: ownerCollection
 };

@@ -1,6 +1,6 @@
 'use strict';
 
-const Dog = (sequelize, DataTypes) => sequelize.define('Dog', {
+const Dog = (sequelize, DataTypes) => sequelize.define('ownedDogs', {
   name: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -14,7 +14,13 @@ const Dog = (sequelize, DataTypes) => sequelize.define('Dog', {
   breed: {
     type: DataTypes.STRING,
     allowNull: false,
-  }
+  },
+
+  ownerId: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+  },
+
 });
 
 module.exports = Dog;

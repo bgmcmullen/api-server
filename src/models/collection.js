@@ -20,11 +20,19 @@ class Collection {
 
   async read( id, options={} ) {
     let records = null;
+    if(id) {
+      options.where = { id };
+      records = await this.model.findOne(options);
+    } else {
+      records = await this.model.findAll(options);
+    }
+    return records;
     try {
       if(id) {
+        options.where = { id };
         records = await this.model.findOne(options);
       } else {
-        recording = await this.model.findAll(options);
+        records = await this.model.findAll(options);
       }
       return records;
     } catch(e){

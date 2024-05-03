@@ -16,13 +16,13 @@ router.delete('/:id', deleteDog);
 
 // ROUTE HANDLERS
 async function getDogs( request, response ) {
-  let data = await Dogs.findAll();
+  let data = await Dogs.read(null);
   response.status(200).json(data);
 }
 
 async function getOneDog( request, response ) {
   let id = request.params.id;
-  let data = await Dogs.findOne({where: {id:id}});
+  let data = await Dogs.read(id);
   response.status(200).json(data);
 }
 
@@ -35,14 +35,13 @@ async function createDog( request, response ) {
 async function updateDog( request, response ) {
   let id = request.params.id;
   let data = request.body;
-  let dog = await Dogs.findOne({where: {id:id}});
-  let updatedDog = await dog.update(data);
+  let updatedDog = await Dogs.update(id, data);
   response.status(200).json(updatedDog);
 }
 
 async function deleteDog( request, response ) {
   let id = request.params.id;
-  let deletedDog = await Dogs.destroy( {where: {id:id}} );
+  let deletedDog = await Dogs.delete(id);
   if ( typeof deletedDog === "number" ) {
     response.status(204).send(null);
   } else {
