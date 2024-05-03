@@ -11,13 +11,13 @@ const notFoundHandler = require('./handlers/404.js');
 const errorHandler = require('./handlers/500.js');
 
 const dogRoutes = require('./routes/dog.js');
-const cityRoutes = require('./routes/city.js');
+const ownerRoutes = require('./routes/owner.js');
 
 app.use(cors());
 app.use(express.json());
 
-app.use(logger, dogRoutes);
-app.use(logger, cityRoutes);
+app.use('/dogs', logger, dogRoutes);
+app.use('/owners', logger, ownerRoutes);
 
 app.use('/broken', (req,res,next) => next("ERROR!!!!!!!!!!!!!"));
 

@@ -149,45 +149,47 @@ describe('API Server' , () => {
     expect(deleteResponse.text).toBe('');
   });
 
-  it('can add a city', async () => {
-    let data = {"name":"Seattle", "population": 700000};
-    let response = await (mockRequest.post('/cities').send(data));
+  it('can add a owner', async () => {
+    let data = {"firstName":"Homer", "lastName": "Simpson", "favoriteColor": "Puce"};
+    let response = await (mockRequest.post('/owners').send(data));
     expect(response.status).toBe(201);
     expect(response.body.id).toBeDefined();
-    expect(response.body.name).toBe('Seattle');
-    expect(response.body.population).toBe(700000);
+    expect(response.body.firstName).toBe('Homer');
+    expect(response.body.favoriteColor).toBe("Puce");
   });
 
-  it('can get a list of city', async () => {
-    let response = await mockRequest.get('/cities');
+  it('can get a list of owner', async () => {
+    let response = await mockRequest.get('/owners');
     expect(response.status).toBe(200);
     expect(response.body).toBeInstanceOf(Array);
     expect(response.body.length).toBeGreaterThan(0);
-    expect(response.body[0]).toHaveProperty('population');
+    expect(response.body[0]).toHaveProperty("lastName");
   });
 
-  it('can get a city', async () => {
-    let response = await mockRequest.get('/cities/1');
+  it('can get a owner', async () => {
+    let response = await mockRequest.get('/owners/1');
     expect(response.status).toBe(200);
     expect(response.body).toBeInstanceOf(Object);
-    expect(response.body).toHaveProperty('population');
-    expect(response.body.name).toBeDefined();
+    expect(response.body).toHaveProperty("lastName");
+    expect(response.body.lastName).toBeDefined();
   });
 
-  it('can update a city', async () => {
+  it('can update a owner', async () => {
     let data = {};
-    let response = await mockRequest.put('/cities/1',data);
+    let response = await mockRequest.put('/owners/1',data);
     expect(response.status).toBe(200);
   });
 
-  it('can delete a city', async () => {
-    let data = {"name":"Seattle", "population": 700000};
-    let response = await (mockRequest.post('/cities').send(data));
+  it('can delete a owner', async () => {
+    let data = {"firstName":"Homer", "lastName": "Simpson", "favoriteColor": "Puce"};
+    let response = await (mockRequest.post('/owners').send(data));
     let id = response.body.id;
 
-    let deleteResponse = await mockRequest.delete(`/cities/${id}`);
+    let deleteResponse = await mockRequest.delete(`/owners/${id}`);
     expect(deleteResponse.status).toBe(204);
     expect(deleteResponse.text).toBe('');
   });
+
+  // it('can add a dog to an owner')
 
 })
