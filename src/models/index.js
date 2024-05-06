@@ -16,7 +16,7 @@ const dogCollection = new Collection(dogModel);
 const ownerCollection = new Collection(ownerModel);
 
 ownerModel.hasMany(dogModel, {foreignKey: 'ownerId', sourceKey: 'id'} )
-dogModel.belongsTo(ownerModel, {foreignKey: 'onwerId', targetKey: 'id'});
+dogModel.belongsTo(ownerModel, {foreignKey: 'ownerId', targetKey: 'id'});
 
 module.exports = {
     db: sequelize,
